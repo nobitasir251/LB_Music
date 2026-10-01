@@ -1,7 +1,7 @@
 import os
 import re
-
 from os import getenv
+
 from dotenv import load_dotenv
 from pyrogram import filters
 
@@ -9,7 +9,7 @@ load_dotenv()
 
 
 # ============================================================
-# REQUIRED CONFIGURATION
+# HELPER FUNCTIONS
 # ============================================================
 
 def get_required(name):
@@ -31,7 +31,6 @@ def get_int(name, default=None, required=False):
             raise RuntimeError(
                 f"Missing required environment variable: {name}"
             )
-
         return default
 
     try:
@@ -62,11 +61,8 @@ def get_bool(name, default=False):
 # TELEGRAM
 # ============================================================
 
-# Get these from https://my.telegram.org/apps
 API_ID = get_int("API_ID", required=True)
 API_HASH = get_required("API_HASH")
-
-# Get this from @BotFather
 BOT_TOKEN = get_required("BOT_TOKEN")
 
 
@@ -74,14 +70,16 @@ BOT_TOKEN = get_required("BOT_TOKEN")
 # DATABASE / BOT
 # ============================================================
 
-# Get MongoDB URI from your MongoDB provider
 MONGO_DB_URI = get_required("MONGO_DB_URI")
 
-MUSIC_BOT_NAME = getenv("MUSIC_BOT_NAME", "Music Bot")
+MUSIC_BOT_NAME = getenv(
+    "MUSIC_BOT_NAME",
+    "Music Bot",
+)
 
 PRIVATE_BOT_MODE = get_bool(
     "PRIVATE_BOT_MODE",
-    default=False,
+    False,
 )
 
 
@@ -91,7 +89,7 @@ PRIVATE_BOT_MODE = get_bool(
 
 DURATION_LIMIT_MIN = get_int(
     "DURATION_LIMIT",
-    default=900,
+    900,
 )
 
 
@@ -99,7 +97,6 @@ DURATION_LIMIT_MIN = get_int(
 # LOGGING
 # ============================================================
 
-# Telegram group/channel IDs
 LOGGER_ID = get_int(
     "LOGGER_ID",
     required=True,
@@ -130,7 +127,7 @@ HEROKU_API_KEY = getenv("HEROKU_API_KEY")
 
 
 # ============================================================
-# UPSTREAM REPOSITORY
+# UPSTREAM
 # ============================================================
 
 UPSTREAM_REPO = getenv(
@@ -167,12 +164,12 @@ SUPPORT_CHAT = getenv(
 
 AUTO_LEAVING_ASSISTANT = get_bool(
     "AUTO_LEAVING_ASSISTANT",
-    default=False,
+    False,
 )
 
 AUTO_GCAST = get_bool(
     "AUTO_GCAST",
-    default=False,
+    False,
 )
 
 AUTO_GCAST_MSG = getenv(
@@ -185,13 +182,18 @@ AUTO_GCAST_MSG = getenv(
 # SPOTIFY
 # ============================================================
 
-# Prefer setting these in environment variables.
-SPOTIFY_CLIENT_ID = get_required(
-    "SPOTIFY_CLIENT_ID"
+# Optional.
+# If Spotify is configured, these values will be used.
+# If not configured, the bot can still start.
+
+SPOTIFY_CLIENT_ID = getenv(
+    "SPOTIFY_CLIENT_ID",
+    "",
 )
 
-SPOTIFY_CLIENT_SECRET = get_required(
-    "SPOTIFY_CLIENT_SECRET"
+SPOTIFY_CLIENT_SECRET = getenv(
+    "SPOTIFY_CLIENT_SECRET",
+    "",
 )
 
 
@@ -201,12 +203,12 @@ SPOTIFY_CLIENT_SECRET = get_required(
 
 SERVER_PLAYLIST_LIMIT = get_int(
     "SERVER_PLAYLIST_LIMIT",
-    default=50,
+    50,
 )
 
 PLAYLIST_FETCH_LIMIT = get_int(
     "PLAYLIST_FETCH_LIMIT",
-    default=25,
+    25,
 )
 
 
@@ -216,12 +218,12 @@ PLAYLIST_FETCH_LIMIT = get_int(
 
 SONG_DOWNLOAD_DURATION = get_int(
     "SONG_DOWNLOAD_DURATION_LIMIT",
-    default=180,
+    180,
 )
 
 SONG_DOWNLOAD_DURATION_LIMIT = get_int(
     "SONG_DOWNLOAD_DURATION_LIMIT",
-    default=2000,
+    2000,
 )
 
 
@@ -229,16 +231,14 @@ SONG_DOWNLOAD_DURATION_LIMIT = get_int(
 # TELEGRAM FILE SIZE LIMITS
 # ============================================================
 
-# Audio: 100 MB
 TG_AUDIO_FILESIZE_LIMIT = get_int(
     "TG_AUDIO_FILESIZE_LIMIT",
-    default=104857600,
+    104857600,
 )
 
-# Video: 1 GB
 TG_VIDEO_FILESIZE_LIMIT = get_int(
     "TG_VIDEO_FILESIZE_LIMIT",
-    default=1073741824,
+    1073741824,
 )
 
 
@@ -332,7 +332,7 @@ SPOTIFY_PLAYLIST_IMG_URL = getenv(
 
 
 # ============================================================
-# TIME FUNCTIONS
+# TIME
 # ============================================================
 
 def time_to_seconds(time):
@@ -346,8 +346,8 @@ def time_to_seconds(time):
     )
 
 
-DURATION_LIMIT = int(
-    time_to_seconds(f"{DURATION_LIMIT_MIN}:00")
+DURATION_LIMIT = time_to_seconds(
+    f"{DURATION_LIMIT_MIN}:00"
 )
 
 
@@ -361,7 +361,7 @@ if SUPPORT_CHANNEL:
         SUPPORT_CHANNEL,
     ):
         raise SystemExit(
-            "[ERROR] SUPPORT_CHANNEL URL is invalid. "
+            "[ERROR] SUPPORT_CHANNEL URL is wrong. "
             "It must start with https://"
         )
 
@@ -372,6 +372,6 @@ if SUPPORT_CHAT:
         SUPPORT_CHAT,
     ):
         raise SystemExit(
-            "[ERROR] SUPPORT_CHAT URL is invalid. "
+            "[ERROR] SUPPORT_CHAT URL is wrong. "
             "It must start with https://"
         )
