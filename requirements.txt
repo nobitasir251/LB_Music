@@ -57,4 +57,4 @@ gpytranslate
 openai==0.28.0
 mpv
 moviepy
-lyricsgenius
+lyricsgenius==3.0.1
