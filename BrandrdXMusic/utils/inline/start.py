@@ -1,7 +1,5 @@
-from pyrogram.types import InlineKeyboardButton
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-import config
-from EsproMusic import app
 
 
 def start_panel(_):
