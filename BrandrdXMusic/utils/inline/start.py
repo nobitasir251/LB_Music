@@ -8,7 +8,7 @@ def start_panel(_):
         [
             InlineKeyboardButton(
                 text=_["S_B_1"],
-                url=f"https://t.me/{app.username}?startgroup=true",
+                url="https://t.me/AKUMA_X_MUSIC_BOT?startgroup=true",
             ),
             InlineKeyboardButton(
                 text=_["S_B_2"],
@@ -40,7 +40,7 @@ def private_panel(_):
         [
             InlineKeyboardButton(
                 text=_["S_B_3"],
-                url=f"https://t.me/{app.username}?startgroup=true",
+                url="https://t.me/AKUMA_X_MUSIC_BOT?startgroup=true",
             ),
         ],
         [
