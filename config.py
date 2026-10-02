@@ -73,8 +73,8 @@ BOT_TOKEN = get_required("BOT_TOKEN")
 MONGO_DB_URI = get_required("MONGO_DB_URI")
 
 MUSIC_BOT_NAME = getenv(
-    "MUSIC_BOT_NAME",
-    "Music Bot",
+    "AkumaMusicBot",
+    "𝗔𝗞𝗨𝗠𝗔 𝗫 𝗠𝗨𝗦𝗜𝗖",
 )
 
 PRIVATE_BOT_MODE = get_bool(
